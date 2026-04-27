@@ -1,21 +1,54 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
 function Register({ darkMode }) {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ full_name:"", email:"", password:"", confirmPassword:"", role:"student" });
-  const [error, setError] = useState(""); const [message, setMessage] = useState(""); const [loading, setLoading] = useState(false);
-  const handleChange = e => setFormData(p=>({...p,[e.target.name]:e.target.value}));
-  const handleSubmit = async e => {
-    e.preventDefault(); setError(""); setMessage("");
-    if(formData.password!==formData.confirmPassword){ setError("Passwords do not match"); return; }
+  const [formData, setFormData] = useState({
+    full_name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    role: "student"
+  });
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setMessage("");
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/register",{ full_name:formData.full_name, email:formData.email, password:formData.password, role:formData.role });
-      if(res.data.success){ setMessage("Account created! ✨"); setTimeout(()=>navigate("/"),1200); }
-    } catch(err){ setError(err.response?.data?.message||"Something went wrong"); } finally{ setLoading(false); }
+      const payload = {
+        full_name: formData.full_name,
+        email: formData.email,
+        password: formData.password,
+        role: formData.role
+      };
+      const res = await axios.post("http://localhost:5000/api/auth/register", payload);
+      if (res.data.success) {
+        setMessage("Account created! ✨");
+        setTimeout(() => navigate("/"), 1200);
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
+
   const inputCls = `w-full px-5 py-4 rounded-2xl outline-none border transition-all text-sm focus:ring-2 ${darkMode?'bg-[#0D0618] border-[#2D1B5E] text-[#F3EEF8] focus:border-[#7C3AED] focus:ring-[#7C3AED]/20 placeholder-[#4C1D95]':'bg-[#F3EEF8] border-[#E9D5FF] focus:border-[#7C3AED] focus:ring-[#7C3AED]/10'}`;
   const labelCls = `block text-[10px] uppercase tracking-widest font-bold mb-1.5 ${darkMode?'text-[#A78BFA]':'text-[#9333EA]'}`;
 
@@ -41,16 +74,35 @@ function Register({ darkMode }) {
           <p className={`text-xs uppercase tracking-[0.25em] font-bold ${darkMode?'text-[#A78BFA]':'text-[#9333EA]'}`}>✦ Create your account ✦</p>
         </div>
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div className="md:col-span-2"><label className={labelCls}>Full Name</label><input type="text" name="full_name" placeholder="Your name" value={formData.full_name} onChange={handleChange} required className={inputCls}/></div>
-          <div className="md:col-span-2"><label className={labelCls}>Email Address</label><input type="email" name="email" placeholder="name@example.com" value={formData.email} onChange={handleChange} required className={inputCls}/></div>
-          <div><label className={labelCls}>Password</label><input type="password" name="password" placeholder="••••••••" value={formData.password} onChange={handleChange} required className={inputCls}/></div>
-          <div><label className={labelCls}>Confirm</label><input type="password" name="confirmPassword" placeholder="••••••••" value={formData.confirmPassword} onChange={handleChange} required className={inputCls}/></div>
-          <div className="md:col-span-2"><label className={labelCls}>Role</label><select name="role" value={formData.role} onChange={handleChange} className={`${inputCls} cursor-pointer`}><option value="student">Student</option><option value="librarian">Librarian</option><option value="admin">Admin</option></select></div>
+          <div className="md:col-span-2">
+            <label className={labelCls}>Full Name</label>
+            <input type="text" name="full_name" placeholder="Your name" value={formData.full_name} onChange={handleChange} required className={inputCls}/>
+          </div>
+          <div className="md:col-span-2">
+            <label className={labelCls}>Email Address</label>
+            <input type="email" name="email" placeholder="name@example.com" value={formData.email} onChange={handleChange} required className={inputCls}/>
+          </div>
+          <div>
+            <label className={labelCls}>Password</label>
+            <input type="password" name="password" placeholder="••••••••" value={formData.password} onChange={handleChange} required className={inputCls}/>
+          </div>
+          <div>
+            <label className={labelCls}>Confirm</label>
+            <input type="password" name="confirmPassword" placeholder="••••••••" value={formData.confirmPassword} onChange={handleChange} required className={inputCls}/>
+          </div>
+          <div className="md:col-span-2">
+            <label className={labelCls}>Role</label>
+            <select name="role" value={formData.role} onChange={handleChange} className={`${inputCls} cursor-pointer`}>
+              <option value="student">Student</option>
+              <option value="librarian">Librarian</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
           <div className="md:col-span-2 space-y-3 mt-2">
             {message && <p className="text-emerald-400 text-xs font-bold text-center">✓ {message}</p>}
             {error && <p className="text-[#F472B6] text-xs font-bold text-center">✦ {error}</p>}
             <button type="submit" disabled={loading} className="w-full py-4 rounded-2xl font-black text-sm uppercase tracking-widest text-white shadow-xl transition-all hover:-translate-y-0.5 active:scale-95 disabled:opacity-50 btn-magic">
-              {loading?"Creating...":"Create Account ✨"}
+              {loading ? "Creating..." : "Create Account ✨"}
             </button>
           </div>
         </form>
