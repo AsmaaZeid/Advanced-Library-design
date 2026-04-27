@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* ══════════════════════════════════════════════════════
+   BIBLIOTECH — SOFT PURPLE PALETTE
+   Dark:  #150E2B backgrounds, violet accents
+   Light: #FAF7FF warm cream, soft lavender borders
+══════════════════════════════════════════════════════ */
+
+:root {
+  --dp1: #0F0A20;   /* darkest bg */
+  --dp2: #150E2B;   /* dark bg */
+  --dp3: #1E1540;   /* card dark */
+  --dp4: #2A1F55;   /* border dark */
+  --v1:  #6D28D9;   /* violet base */
+  --v2:  #8B5CF6;   /* violet mid */
+  --v3:  #A78BFA;   /* violet light */
+  --v4:  #C4B5FD;   /* violet pale */
+  --r1:  #DB2777;   /* rose base */
+  --r2:  #EC4899;   /* rose mid */
+  --r3:  #F9A8D4;   /* rose pale */
+  --g1:  #D97706;   /* gold base */
+  --g2:  #F59E0B;   /* gold mid */
+  --g3:  #FDE68A;   /* gold pale */
+  --lbg: #FAF7FF;   /* light bg */
+  --lbg2:#F3EEF9;   /* light alt bg */
+  --lb:  #E9DEFF;   /* light border */
+  --lt:  #2E1065;   /* light text */
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+
+/* ══ SCROLLBARS ══ */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: linear-gradient(#6D28D9, #EC4899); border-radius: 3px; }
+.books-scroll::-webkit-scrollbar { height: 3px; }
+.books-scroll::-webkit-scrollbar-thumb { background: linear-gradient(to right, #6D28D9, #EC4899); border-radius: 2px; }
+
+/* ══ BOOK INTRO ══ */
+.book-intro-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at 40% 40%, #1E1540 0%, #0F0A20 70%);
+  overflow: hidden;
+}
+.book-intro-overlay.done { animation: overlay-fade 0.7s 0.2s ease forwards; pointer-events: none; }
+@keyframes overlay-fade { to { opacity: 0; } }
+
+.book-3d { position: relative; width: 175px; height: 245px; perspective: 1200px; transform-style: preserve-3d; }
+.book-cover {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #2A1F55 0%, #1E1540 55%, #0F0A20 100%);
+  border-radius: 4px 14px 14px 4px;
+  box-shadow: -8px 10px 40px rgba(109,40,217,0.55);
+  transform-origin: left center; transform: rotateY(0deg);
+  transition: transform 1.4s cubic-bezier(0.645,0.045,0.355,1);
+  backface-visibility: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 22px;
+  border: 1px solid rgba(167,139,250,0.35);
+}
+.book-3d.open .book-cover { transform: rotateY(-165deg); }
+.book-spine { position: absolute; left: -13px; top: 0; width: 16px; height: 100%; background: linear-gradient(to right,#07040f,#1a1035); border-radius: 4px 0 0 4px; }
+.book-inner { position: absolute; inset: 0; background: linear-gradient(135deg,#f5eeff,#fff8ff); border-radius: 4px 14px 14px 4px; z-index: -1; display: flex; align-items: center; justify-content: center; }
+.book-inner-text { opacity: 0; text-align: center; transition: opacity 0.6s 1.1s ease; }
+.book-3d.open .book-inner-text { opacity: 1; }
+
+/* ══ GLASS ══ */
+.glass-dark  { background: rgba(30,21,64,0.75); backdrop-filter: blur(20px); border: 1px solid rgba(167,139,250,0.12); }
+.glass-light { background: rgba(250,247,255,0.88); backdrop-filter: blur(20px); border: 1px solid rgba(109,40,217,0.1); }
+
+/* ══ ANIMATIONS ══ */
+@keyframes fade-in      { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+@keyframes slide-left   { from{opacity:0;transform:translateX(-56px)} to{opacity:1;transform:translateX(0)} }
+@keyframes slide-right  { from{opacity:0;transform:translateX(56px)} to{opacity:1;transform:translateX(0)} }
+@keyframes float        { 0%,100%{transform:translateY(0) rotate(0deg)} 35%{transform:translateY(-13px) rotate(2deg)} 70%{transform:translateY(-6px) rotate(-1deg)} }
+@keyframes float-slow   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
+@keyframes float-gentle { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-7px) scale(1.01)} }
+@keyframes shimmer      { 0%{background-position:-200% center} 100%{background-position:200% center} }
+@keyframes spin-slow    { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+@keyframes book-bounce  { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-9px) scale(1.02)} }
+@keyframes zoomIn       { from{opacity:0;transform:scale(0.94)} to{opacity:1;transform:scale(1)} }
+@keyframes twinkle      { 0%,100%{opacity:0.2;transform:scale(0.8)} 50%{opacity:1;transform:scale(1.2)} }
+@keyframes petal-fall   { 0%{transform:translateY(-20px) rotate(0deg);opacity:0} 15%{opacity:.8} 100%{transform:translateY(110vh) rotate(540deg) translateX(25px);opacity:0} }
+@keyframes worm-wave    { 0%,100%{transform:scaleY(1) scaleX(1)} 50%{transform:scaleY(.88) scaleX(1.1)} }
+@keyframes eye-blink    { 0%,88%,100%{transform:scaleY(1)} 92%,96%{transform:scaleY(.06)} }
+@keyframes tail-sway    { 0%,100%{transform:rotate(-18deg)} 50%{transform:rotate(18deg)} }
+@keyframes wing-bob     { 0%,100%{transform:rotate(-8deg)} 50%{transform:rotate(8deg)} }
+@keyframes blush        { 0%,100%{opacity:.3} 50%{opacity:.55} }
+@keyframes aurora       { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+.animate-fade-in     { animation: fade-in 0.9s ease-out forwards; }
+.animate-slide-left  { animation: slide-left 0.8s ease-out forwards; }
+.animate-slide-right { animation: slide-right 0.8s ease-out forwards; }
+.animate-float       { animation: float 4.5s ease-in-out infinite; }
+.animate-float-slow  { animation: float-slow 7s ease-in-out infinite; }
+.animate-float-gentle{ animation: float-gentle 5s ease-in-out infinite; }
+.animate-book-bounce { animation: book-bounce 3.5s ease-in-out infinite; }
+.animate-spin-slow   { animation: spin-slow 28s linear infinite; }
+.animate-zoom-in     { animation: zoomIn 0.4s ease-out forwards; }
+.animate-twinkle     { animation: twinkle 2.5s ease-in-out infinite; }
+
+/* ══ SHIMMER TEXT ══ */
+.text-shimmer {
+  background: linear-gradient(90deg,#A78BFA,#EC4899,#FDE68A,#A78BFA,#EC4899);
+  background-size: 220% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  animation: shimmer 4.5s linear infinite;
+}
+
+/* ══ AURORA GRADIENT ══ */
+.aurora { background: linear-gradient(270deg,#6D28D9,#EC4899,#8B5CF6,#EC4899,#6D28D9); background-size:400% 400%; animation:aurora 4s ease infinite; }
+
+/* ══ NAV LINK ══ */
+.nav-link { position:relative; }
+.nav-link::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:linear-gradient(90deg,#8B5CF6,#EC4899); transition:width .3s ease; border-radius:1px; }
+.nav-link:hover::after { width:100%; }
+
+/* ══ CARDS ══ */
+.book-card-hover { transition:all .4s cubic-bezier(.25,.46,.45,.94); }
+.book-card-hover:hover { transform:translateY(-9px) rotateY(-4deg) rotateX(2deg); box-shadow:0 18px 50px rgba(109,40,217,.28); }
+.category-pill { transition:all .3s cubic-bezier(.25,.46,.45,.94); }
+.category-pill:hover { transform:translateY(-4px) scale(1.04); }
+.magic-card { background:linear-gradient(135deg,rgba(42,31,85,.8),rgba(30,21,64,.92)); border:1px solid rgba(167,139,250,.18); backdrop-filter:blur(20px); }
+.magic-card:hover { border-color:rgba(167,139,250,.4); box-shadow:0 18px 50px rgba(109,40,217,.18); }
+
+/* ══ BUTTONS ══ */
+.btn-magic { background:linear-gradient(135deg,#6D28D9,#8B5CF6,#DB2777); color:white; border:none; transition:all .25s ease; }
+.btn-magic:hover { background:linear-gradient(135deg,#5B21B6,#7C3AED,#BE185D); transform:translateY(-2px); box-shadow:0 10px 28px rgba(109,40,217,.38); }
+.btn-outline-magic { background:transparent; border:1px solid rgba(167,139,250,.45); color:#C4B5FD; transition:all .25s ease; }
+.btn-outline-magic:hover { background:rgba(109,40,217,.18); border-color:#A78BFA; }
+
+/* ══ PETALS ══ */
+.petal { position:absolute; pointer-events:none; animation:petal-fall linear infinite; }
+
+/* ══ OVERLAY ══ */
+.overlay-blur { backdrop-filter:blur(5px); }
+
+/* ══ MOBILE ══ */
+@media(max-width:640px){ .book-3d{width:128px;height:182px;} }
+
+/* ══ CUSTOM CURSOR — hide default everywhere ══ */
+*, *::before, *::after { cursor: none !important; }
+
+/* ══ PAGE NOT FOUND ══ */
+.page-not-found {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+}
