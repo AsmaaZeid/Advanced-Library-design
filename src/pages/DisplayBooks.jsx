@@ -150,6 +150,7 @@ const DisplayBooks = ({ darkMode }) => {
           </button>
 
           <span className={`text-xs font-medium flex-shrink-0 hidden md:block ${accentText}`}>{filtered.length} books</span>
+          <button onClick={() => navigate(-1)} className={`text-sm font-medium flex-shrink-0 transition-all hover:opacity-70 nav-link ${accentText}`}>← Back</button>
         </div>
       </nav>
 

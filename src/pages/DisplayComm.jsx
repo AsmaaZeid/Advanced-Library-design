@@ -89,6 +89,7 @@ const DisplayComm = ({ darkMode }) => {
             className="px-4 py-2 rounded-xl text-sm font-bold text-white shadow-lg transition-all hover:-translate-y-0.5 active:scale-95 btn-magic flex-shrink-0">
             + New Community
           </button>
+          <button onClick={() => navigate(-1)} className={`text-sm font-medium flex-shrink-0 transition-all hover:opacity-70 nav-link ${isDark?'text-[#A78BFA]':'text-[#8B5CF6]'}`}>← Back</button>
         </div>
       </nav>
 

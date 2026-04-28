@@ -66,6 +66,7 @@ const CommunityDetail = ({ darkMode }) => {
             </Link>
             <Link to="/groups" className={`text-sm font-medium opacity-60 hover:opacity-100 nav-link ${accentText}`}>All Communities</Link>
           </div>
+          <button onClick={() => navigate(-1)} className={`text-sm font-medium transition-all hover:opacity-70 nav-link ${accentText}`}>← Back</button>
         </div>
       </nav>
 

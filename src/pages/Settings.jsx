@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Settings = ({ darkMode, setDarkMode }) => {
+  const navigate = useNavigate();
   const pageClass = darkMode ? 'bg-[#0F0A20] text-[#F3EEF8]' : 'bg-[#FAF7FF] text-[#2E1065]';
   const sectionCard = darkMode ? 'bg-[#1E1540] border-[#2A1F55]' : 'bg-white border-[#E9DEFF] shadow-sm';
   const accentText = darkMode ? 'text-[#A78BFA]' : 'text-[#8B5CF6]';
@@ -24,7 +25,7 @@ const Settings = ({ darkMode, setDarkMode }) => {
             </svg>
             <span style={{ fontFamily:"'Playfair Display',serif" }} className={`font-black text-lg italic ${darkMode?'text-[#C4B5FD]':'text-[#4C1D95]'}`}>BiblioTech</span>
           </Link>
-          <span className={`text-sm font-bold ${accentText}`}>⚙ Settings</span>
+          <button onClick={() => navigate(-1)} className={`text-sm font-medium transition-all hover:opacity-70 nav-link ${accentText}`}>← Back</button>
         </div>
       </nav>
 

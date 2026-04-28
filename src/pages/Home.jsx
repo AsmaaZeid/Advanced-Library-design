@@ -349,12 +349,6 @@ const Home = ({ darkMode, setDarkMode }) => {
         {/* HERO TEXT */}
         <div className="relative h-full flex flex-col items-center justify-center text-center px-4 pt-16">
           <div className="animate-fade-in max-w-4xl">
-            <div className={`inline-flex items-center gap-2 px-5 py-2 rounded-full border mb-6 text-sm backdrop-blur-sm ${isDark?'border-[#A78BFA]/30 bg-[#8B5CF6]/10 text-[#C4B5FD]':'border-[#A78BFA]/40 bg-[#8B5CF6]/8 text-[#6D28D9]'}`}>
-              <span style={{ animation:'twinkle 2s ease-in-out infinite' }}>✦</span>
-              <span>Your magical reading sanctuary</span>
-              <span style={{ animation:'twinkle 2s .5s ease-in-out infinite' }}>✦</span>
-            </div>
-
             <h1 style={{ fontFamily:"'Playfair Display',serif" }}
               className={`text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[.95] tracking-tight ${isDark?'text-white':'text-[#2E1065]'}`}>
               Discover your<br/>

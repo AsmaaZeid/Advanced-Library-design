@@ -6,7 +6,7 @@ const RoadmapBook = ({ book, darkMode }) => {
   const navigate = useNavigate();
   return (
     <div onClick={() => navigate(`/book/${book.id}`, { state:{ book } })}
-      className="group flex-shrink-0 w-36 cursor-pointer transition-all duration-400 book-card-hover">
+      className="group flex-shrink-0 w-28 sm:w-36 cursor-pointer transition-all duration-400 book-card-hover">
       <div className="relative h-52 rounded-2xl overflow-hidden mb-2 shadow-md">
         <img src={book.coverUrl || defaultimage} alt={book.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
@@ -84,8 +84,8 @@ const RoadmapStep = ({ step, index, darkMode, isCompleted, isUnlocked, isLast, o
           <div className="relative group/books">
             {step.books.length > 2 && (
               <>
-                <button onClick={() => scroll('left')} className="absolute -left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover/books:opacity-100 transition-all btn-magic text-white text-sm">‹</button>
-                <button onClick={() => scroll('right')} className="absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover/books:opacity-100 transition-all btn-magic text-white text-sm">›</button>
+                <button onClick={() => scroll('left')} className="absolute -left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full flex items-center justify-center shadow-lg opacity-100 md:opacity-0 md:group-hover/books:opacity-100 transition-all btn-magic text-white text-sm">‹</button>
+                <button onClick={() => scroll('right')} className="absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full flex items-center justify-center shadow-lg opacity-100 md:opacity-0 md:group-hover/books:opacity-100 transition-all btn-magic text-white text-sm">›</button>
               </>
             )}
             <div ref={scrollRef} className="flex gap-3 overflow-x-auto pb-3 books-scroll">

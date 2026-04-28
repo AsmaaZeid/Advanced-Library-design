@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import defaultimage from "../assets/default-book-cover.jpg";
 import CustomAlert from "./CustomAlert";
@@ -78,6 +78,7 @@ const BookDetail = ({ darkMode }) => {
   const [userRating, setUserRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
 
+  const navigate = useNavigate();
   const isDark = darkMode;
   const pageStyle = isDark ? 'bg-[#0F0A20] text-[#F3EEF8]' : 'bg-[#FAF7FF] text-[#2E1065]';
   const cardStyle = isDark ? 'bg-[#1E1540] border-[#2A1F55]' : 'bg-white border-[#E9DEFF] shadow-lg';
@@ -127,14 +128,17 @@ const BookDetail = ({ darkMode }) => {
                 <rect x="5" y="4" width="4" height="20" rx="1" fill="#150E2B"/>
                 <polygon points="14,1 15.2,4.5 19,4.5 16.1,6.8 17.1,10.2 14,8 10.9,10.2 11.9,6.8 9,4.5 12.8,4.5" fill="#EC4899" opacity=".9"/>
               </svg>
-              <span style={{fontFamily:"'Playfair Display',serif"}} className={`font-black text-lg italic ${isDark?'text-[#C4B5FD]':'text-[#4C1D95]'}`}>BiblioTech</span>
+              <span style={{fontFamily:"'Playfair Display',serif"}} className={`hidden sm:block font-black text-lg italic ${isDark?'text-[#C4B5FD]':'text-[#4C1D95]'}`}>BiblioTech</span>
             </Link>
             <span className={`hidden md:block px-3 py-1 rounded-full text-xs font-bold ${isDark?'bg-[#8B5CF6]/20 text-[#A78BFA]':'bg-[#F3EEF9] text-[#6D28D9]'}`}>{data.genre}</span>
           </div>
-          <Link to={`/comments/book/${data.id}`} state={{type:"book",data}}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold border transition-all hover:-translate-y-0.5 ${isDark?'border-[#2A1F55] text-[#C4B5FD] hover:bg-[#1E1540]':'border-[#E9DEFF] text-[#6D28D9] hover:bg-[#F3EEF9]'}`}>
-            💬 Discussion
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link to={`/comments/book/${data.id}`} state={{type:"book",data}}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold border transition-all hover:-translate-y-0.5 ${isDark?'border-[#2A1F55] text-[#C4B5FD] hover:bg-[#1E1540]':'border-[#E9DEFF] text-[#6D28D9] hover:bg-[#F3EEF9]'}`}>
+              💬 Discussion
+            </Link>
+            <button onClick={() => navigate(-1)} className={`text-sm font-medium transition-all hover:opacity-70 nav-link ${isDark?'text-[#A78BFA]':'text-[#8B5CF6]'}`}>← Back</button>
+          </div>
         </div>
       </nav>
 

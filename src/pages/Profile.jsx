@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import defaultimage from "../assets/default-book-cover.jpg";
 import { OwlyCharacter, WormyCharacter } from "../components/Characters";
 
 const Profile = ({ darkMode }) => {
+  const navigate = useNavigate();
   const isDark = darkMode;
   const pageStyle = isDark ? 'bg-[#0F0A20] text-[#F3EEF8]' : 'bg-[#FAF7FF] text-[#2E1065]';
   const panelStyle = isDark ? 'bg-[#1E1540] border-[#2A1F55]' : 'bg-white border-[#E9DEFF] shadow-sm';
@@ -41,7 +42,7 @@ const Profile = ({ darkMode }) => {
             </svg>
             <span style={{ fontFamily:"'Playfair Display',serif" }} className={`font-black text-lg italic ${isDark?'text-[#C4B5FD]':'text-[#4C1D95]'}`}>BiblioTech</span>
           </Link>
-          <span className={`text-sm font-bold ${dimText}`}>My Profile</span>
+          <button onClick={() => navigate(-1)} className={`text-sm font-medium transition-all hover:opacity-70 nav-link ${dimText}`}>← Back</button>
         </div>
       </nav>
 
