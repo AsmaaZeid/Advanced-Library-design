@@ -105,7 +105,20 @@ const Home = ({ darkMode, setDarkMode }) => {
   const statsRef = useRef(null);
   const commRef = useRef(null);
 
-  const dummyBooks = Array.from({length:12},(_,i)=>({ id:i+1, title:`Book Title ${i+1}`, price:14.99+i, rating:3.5+Math.random()*1.5, author:'Author Name', description:'' }));
+  const dummyBooks = [
+    { id:1,  title:"The Great Gatsby",                     author:"F. Scott Fitzgerald", price:9.99,  rating:4.1, description:"", coverUrl:"https://covers.openlibrary.org/b/isbn/9780743273565-M.jpg" },
+    { id:2,  title:"Dune",                                 author:"Frank Herbert",        price:14.99, rating:4.8, description:"", coverUrl:"https://covers.openlibrary.org/b/isbn/9780441013593-M.jpg" },
+    { id:3,  title:"Harry Potter and the Sorcerer's Stone",author:"J.K. Rowling",        price:12.99, rating:4.9, description:"", coverUrl:"https://covers.openlibrary.org/b/isbn/9780439708180-M.jpg" },
+    { id:4,  title:"Gone Girl",                            author:"Gillian Flynn",        price:11.99, rating:4.0, description:"", coverUrl:"https://covers.openlibrary.org/b/isbn/9780307588371-M.jpg" },
+    { id:5,  title:"Sapiens",                              author:"Yuval Noah Harari",    price:15.99, rating:4.7, description:"", coverUrl:"https://covers.openlibrary.org/b/isbn/9780062316097-M.jpg" },
+    { id:6,  title:"Pride and Prejudice",                  author:"Jane Austen",          price:7.99,  rating:4.5, description:"", coverUrl:"https://covers.openlibrary.org/b/isbn/9780141439518-M.jpg" },
+    { id:7,  title:"Atomic Habits",                        author:"James Clear",          price:16.99, rating:4.8, description:"", coverUrl:"https://covers.openlibrary.org/b/isbn/9780735211292-M.jpg" },
+    { id:8,  title:"To Kill a Mockingbird",                author:"Harper Lee",           price:10.99, rating:4.8, description:"", coverUrl:"https://covers.openlibrary.org/b/isbn/9780061935466-M.jpg" },
+    { id:9,  title:"The Hobbit",                           author:"J.R.R. Tolkien",       price:11.99, rating:4.7, description:"", coverUrl:"https://covers.openlibrary.org/b/isbn/9780547928227-M.jpg" },
+    { id:10, title:"The Alchemist",                        author:"Paulo Coelho",         price:10.99, rating:4.6, description:"", coverUrl:"https://covers.openlibrary.org/b/isbn/9780062315007-M.jpg" },
+    { id:11, title:"1984",                                 author:"George Orwell",        price:9.99,  rating:4.7, description:"", coverUrl:"https://covers.openlibrary.org/b/isbn/9780451524935-M.jpg" },
+    { id:12, title:"The Kite Runner",                      author:"Khaled Hosseini",      price:11.99, rating:4.6, description:"", coverUrl:"https://covers.openlibrary.org/b/isbn/9781594631931-M.jpg" },
+  ];
 
   useEffect(() => {
     const token = localStorage.getItem('token');
