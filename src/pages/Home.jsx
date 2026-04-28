@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import hero from '../assets/hero.png';
+import defaultimage from '../assets/default-book-cover.jpg';
 import BookSection from '../components/BookSection';
 import GameSection from '../components/GameSection';
 import Footer from '../components/Footer';
@@ -334,42 +335,31 @@ const Home = ({ darkMode, setDarkMode }) => {
       </div>
 
       {/* ══ HERO ══ */}
-      <section className="relative h-screen w-full overflow-hidden">
+      <section className="relative min-h-screen w-full overflow-hidden flex flex-col lg:flex-row">
         <div className="absolute inset-0" style={{
           background: isDark
-            ? 'radial-gradient(ellipse at 30% 60%, rgba(109,40,217,.25) 0%, transparent 55%), radial-gradient(ellipse at 75% 30%, rgba(219,39,119,.12) 0%, transparent 45%), linear-gradient(160deg,#0F0A20 0%,#150E2B 50%,#1E1540 100%)'
-            : 'radial-gradient(ellipse at 30% 60%, rgba(139,92,246,.12) 0%, transparent 55%), radial-gradient(ellipse at 75% 30%, rgba(236,72,153,.08) 0%, transparent 45%), linear-gradient(160deg,#FAF7FF 0%,#F3EEF9 50%,#EDE5FF 100%)'
+            ? 'radial-gradient(ellipse at 20% 80%, rgba(109,40,217,.3) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(219,39,119,.15) 0%, transparent 45%), linear-gradient(160deg,#0F0A20 0%,#150E2B 60%,#1E1540 100%)'
+            : 'radial-gradient(ellipse at 20% 80%, rgba(139,92,246,.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(236,72,153,.1) 0%, transparent 45%), linear-gradient(160deg,#FAF7FF 0%,#F3EEF9 60%,#EDE5FF 100%)'
         }}/>
         <Stars/>
 
-        {/* Soft rotating rings */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[560px] pointer-events-none opacity-[0.08]">
-          <div className="absolute inset-0 rounded-full border border-[#A78BFA] animate-spin-slow"/>
-          <div className="absolute inset-16 rounded-full border border-[#EC4899]" style={{ animation:'spin-slow 15s linear infinite reverse' }}/>
-          <div className="absolute inset-32 rounded-full border border-[#FDE68A]" style={{ animation:'spin-slow 20s linear infinite' }}/>
-        </div>
-
-        {/* CHARACTERS */}
-        <div className="hidden lg:block absolute bottom-20 left-8" style={{ animation:'float 5s ease-in-out infinite' }}>
-          <OwlyCharacter size={155}/>
-          <p className={`text-center text-xs font-bold italic mt-1 ${isDark?'text-[#C4B5FD]':'text-[#8B5CF6]'}`} style={{ fontFamily:"'Lora',serif" }}>Owly</p>
-        </div>
-        <div className="hidden lg:block absolute bottom-16 right-6" style={{ animation:'float 5s 2s ease-in-out infinite' }}>
-          <WormyCharacter size={155}/>
-          <p className={`text-center text-xs font-bold italic mt-1 ${isDark?'text-[#F9A8D4]':'text-[#EC4899]'}`} style={{ fontFamily:"'Lora',serif" }}>Wormy</p>
-        </div>
-
-        {/* HERO TEXT */}
-        <div className="relative h-full flex flex-col items-center justify-center text-center px-4 pt-16">
-          <div className="animate-fade-in max-w-4xl">
-            <h1 style={{ fontFamily:"'Playfair Display',serif" }}
-              className={`text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[.95] tracking-tight ${isDark?'text-white':'text-[#2E1065]'}`}>
-              Discover your<br/>
-              next obsession,<br/>
-              <span className={`italic font-normal text-[.8em] ${isDark?'text-[#C4B5FD]':'text-[#6D28D9]'}`}>one page at a time</span>
-            </h1>
-
-            <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
+        {/* LEFT — text */}
+        <div className="relative z-10 flex-1 flex flex-col justify-center px-8 sm:px-14 lg:px-20 pt-28 pb-16 lg:py-0">
+          <div className="animate-fade-in">
+            <p className={`text-xs uppercase tracking-[.4em] font-bold mb-8 ${mutedColor}`}>✦ BiblioTech Library</p>
+            <div className="flex items-start gap-5 mb-8">
+              <div className="hidden sm:block flex-shrink-0 w-1 h-36 mt-1 rounded-full" style={{ background:'linear-gradient(to bottom,#8B5CF6,#EC4899)' }}/>
+              <h1 style={{ fontFamily:"'Playfair Display',serif" }}
+                className={`text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black leading-[1.0] tracking-tight ${isDark?'text-white':'text-[#2E1065]'}`}>
+                Discover<br/>
+                <span style={{ background:'linear-gradient(135deg,#8B5CF6,#EC4899)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>your next</span><br/>
+                obsession.
+              </h1>
+            </div>
+            <p className={`text-base mb-10 italic pl-0 sm:pl-6 ${isDark?'text-[#C4B5FD]':'text-[#6D28D9]'}`} style={{ fontFamily:"'Lora',serif" }}>
+              — one page at a time
+            </p>
+            <div className="flex flex-wrap gap-4 sm:pl-6">
               <Link to="/search" className={`group flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-base shadow-xl transition-all hover:-translate-y-1 active:scale-95 ${isDark?'bg-white text-[#4C1D95]':'bg-[#4C1D95] text-white'}`}>
                 <span>Explore Books</span><span className="group-hover:translate-x-1 transition-transform">✦</span>
               </Link>
@@ -377,36 +367,58 @@ const Home = ({ darkMode, setDarkMode }) => {
                 Join Free ✨
               </Link>
             </div>
+            <div className="hidden lg:flex items-center gap-3 mt-14 sm:pl-6">
+              <div style={{ animation:'float 4.5s ease-in-out infinite' }}><OwlyCharacter size={64}/></div>
+              <div style={{ animation:'float 4.5s 1.5s ease-in-out infinite' }}><WormyCharacter size={72}/></div>
+              <p className={`text-xs italic ml-2 ${isDark?'text-[#C4B5FD]':'text-[#6D28D9]'}`} style={{ fontFamily:"'Lora',serif" }}>"Every book is a new adventure!"</p>
+            </div>
           </div>
-          <div className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in ${isDark?'text-[#A78BFA]/50':'text-[#8B5CF6]/50'}`} style={{ animationDelay:'1.5s' }}>
-            <span className="text-[10px] tracking-[.3em] uppercase">Scroll</span>
-            <div className="w-px h-7 bg-gradient-to-b from-[#A78BFA]/50 to-transparent" style={{ animation:'float 1.5s ease-in-out infinite' }}/>
+        </div>
+
+        {/* RIGHT — book showcase */}
+        <div className="relative z-10 hidden lg:flex w-[42%] items-center justify-center py-24 pr-12">
+          <div className="relative w-80 h-[480px]">
+            <div className="absolute top-10 left-0 w-44 h-60 rounded-2xl overflow-hidden shadow-2xl transition-transform duration-500 hover:-translate-y-3"
+              style={{ transform:'rotate(-7deg)', zIndex:1, boxShadow:'0 25px 60px rgba(109,40,217,.35)' }}>
+              <img src={dummyBooks[0].coverUrl} alt={dummyBooks[0].title} className="w-full h-full object-cover" onError={e=>e.target.src=defaultimage}/>
+            </div>
+            <div className="absolute top-4 right-0 w-44 h-60 rounded-2xl overflow-hidden shadow-2xl transition-transform duration-500 hover:-translate-y-3"
+              style={{ transform:'rotate(6deg)', zIndex:2, boxShadow:'0 25px 60px rgba(219,39,119,.3)' }}>
+              <img src={dummyBooks[2].coverUrl} alt={dummyBooks[2].title} className="w-full h-full object-cover" onError={e=>e.target.src=defaultimage}/>
+            </div>
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-64 rounded-2xl overflow-hidden shadow-2xl transition-transform duration-500 hover:-translate-y-3"
+              style={{ zIndex:3, boxShadow:'0 30px 70px rgba(109,40,217,.4)' }}>
+              <img src={dummyBooks[6].coverUrl} alt={dummyBooks[6].title} className="w-full h-full object-cover" onError={e=>e.target.src=defaultimage}/>
+            </div>
+            <div className={`absolute -bottom-4 -right-2 z-10 px-4 py-2 rounded-2xl text-xs font-bold shadow-xl border ${isDark?'bg-[#1E1540] border-[#2A1F55] text-[#C4B5FD]':'bg-white border-[#E9DEFF] text-[#6D28D9]'}`}>
+              📚 48+ books available
+            </div>
           </div>
+        </div>
+
+        <div className={`absolute bottom-8 left-8 sm:left-14 lg:left-20 flex flex-col items-start gap-2 z-10 ${isDark?'text-[#A78BFA]/50':'text-[#8B5CF6]/50'}`}>
+          <span className="text-[10px] tracking-[.3em] uppercase">Scroll</span>
+          <div className="w-px h-7 bg-gradient-to-b from-[#A78BFA]/50 to-transparent" style={{ animation:'float 1.5s ease-in-out infinite' }}/>
         </div>
       </section>
 
       {/* ══ STATS ══ */}
-      <section ref={statsRef} className={`py-20 px-6 ${altSection}`}>
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <p className={`text-xs uppercase tracking-[.3em] font-bold mb-2 ${mutedColor}`}>✦ By the numbers</p>
-            <h2 style={{ fontFamily:"'Playfair Display',serif" }} className="text-3xl font-bold">A library that grows with you</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {l:'Total Books',v:counts.books,icon:<svg width="38" height="38" viewBox="0 0 38 38" fill="none"><rect x="4" y="4" width="30" height="30" rx="5" fill="#2A1F55" stroke="#A78BFA" strokeWidth="1.2"/><rect x="6.5" y="4" width="7" height="30" rx="2" fill="#150E2B"/><rect x="16" y="12" width="13" height="2" rx="1" fill="#A78BFA" opacity=".8"/><rect x="16" y="17" width="9" height="2" rx="1" fill="#C4B5FD" opacity=".6"/><rect x="16" y="22" width="11" height="2" rx="1" fill="#A78BFA" opacity=".6"/></svg>},
-              {l:'Active Readers',v:counts.users,icon:<svg width="38" height="38" viewBox="0 0 38 38" fill="none"><circle cx="15" cy="14" r="7" fill="#2A1F55" stroke="#EC4899" strokeWidth="1.2"/><path d="M 5 33 Q 5 24 15 24 Q 25 24 25 33" stroke="#EC4899" strokeWidth="2" fill="none" strokeLinecap="round"/><circle cx="28" cy="12" r="5" fill="#2A1F55" stroke="#A78BFA" strokeWidth="1"/><path d="M 22 30 Q 22 24 28 24 Q 34 24 34 30" stroke="#A78BFA" strokeWidth="1.5" fill="none" strokeLinecap="round"/></svg>},
-              {l:'Books Borrowed',v:counts.borrows,icon:<svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path d="M 7 9 L 7 32 Q 7 34 9 34 L 29 34 Q 31 34 31 32 L 31 14 L 23 5 L 9 5 Q 7 5 7 9 Z" fill="#2A1F55" stroke="#FDE68A" strokeWidth="1.1"/><path d="M 23 5 L 23 14 L 31 14" fill="#150E2B" stroke="#FDE68A" strokeWidth="1"/><rect x="12" y="18" width="14" height="2" rx="1" fill="#FDE68A" opacity=".7"/><rect x="12" y="23" width="10" height="2" rx="1" fill="#EC4899" opacity=".6"/></svg>},
-            ].map((s,i)=>(
-              <div key={i} className={`relative overflow-hidden p-8 rounded-3xl text-center border transition-all hover:-translate-y-2 ${cardClass}`}
-                style={{ boxShadow:isDark?'0 0 30px rgba(109,40,217,.08)':'0 8px 30px rgba(109,40,217,.07)' }}>
-                <div className="flex justify-center mb-3" style={{ animation:`float ${3+i*.5}s ${i*.5}s ease-in-out infinite` }}>{s.icon}</div>
-                <div className="text-5xl font-black" style={{ background:'linear-gradient(135deg,#A78BFA,#EC4899)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>{s.v.toLocaleString()}+</div>
-                <div className={`text-sm font-semibold uppercase tracking-widest mt-2 ${mutedColor}`}>{s.l}</div>
-                <div className="absolute -bottom-6 -right-6 w-22 h-22 rounded-full bg-gradient-to-br from-[#8B5CF6]/8 to-[#EC4899]/8"/>
+      <section ref={statsRef} className={`border-y ${isDark?'border-[#2A1F55]':'border-[#E9DEFF]'} ${altSection}`}>
+        <div className={`grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x ${isDark?'divide-[#2A1F55]':'divide-[#E9DEFF]'}`}>
+          {[
+            { l:'Total Books',    v:counts.books,   emoji:'📚' },
+            { l:'Active Readers', v:counts.users,   emoji:'👥' },
+            { l:'Books Borrowed', v:counts.borrows, emoji:'📖' },
+          ].map((s,i)=>(
+            <div key={i} className="flex flex-col items-center justify-center py-12 px-8 text-center">
+              <span className="text-3xl mb-3" style={{ animation:`float ${3+i*.5}s ${i*.5}s ease-in-out infinite`, display:'inline-block' }}>{s.emoji}</span>
+              <div className="text-5xl md:text-6xl font-black mb-1"
+                style={{ background:'linear-gradient(135deg,#A78BFA,#EC4899)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>
+                {s.v.toLocaleString()}+
               </div>
-            ))}
-          </div>
+              <div className={`text-xs uppercase tracking-[.25em] font-bold mt-1 ${mutedColor}`}>{s.l}</div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -482,17 +494,24 @@ const Home = ({ darkMode, setDarkMode }) => {
       {/* ══ CATEGORIES ══ */}
       <section className={`py-20 px-6 ${altSection}`}>
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <p className={`text-xs uppercase tracking-[.3em] font-bold mb-2 ${mutedColor}`}>✦ Find your next read</p>
-            <h2 style={{ fontFamily:"'Playfair Display',serif" }} className="text-4xl font-bold">Browse by Genre</h2>
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <p className={`text-xs uppercase tracking-[.3em] font-bold mb-2 ${mutedColor}`}>✦ Find your next read</p>
+              <h2 style={{ fontFamily:"'Playfair Display',serif" }} className="text-4xl font-bold">Browse by Genre</h2>
+            </div>
+            <Link to="/search" className={`text-sm font-semibold hidden sm:block ${mutedColor} hover:opacity-70 transition-opacity`}>View all →</Link>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-            {categories.map(c=>(
-              <Link key={c.name} to={`/search?type=genre&q=${c.name.toLowerCase()}`}
-                className={`category-pill group flex flex-col items-center gap-2 p-4 rounded-2xl border text-center transition-all ${isDark?'bg-[#1E1540] border-[#2A1F55] hover:bg-[#2A1F55] hover:border-[#A78BFA]':'bg-white border-[#E9DEFF] hover:bg-gradient-to-br hover:from-[#6D28D9] hover:to-[#DB2777] hover:border-transparent hover:text-white shadow-sm'}`}>
-                <span className="text-xl group-hover:scale-110 transition-transform">{c.ico}</span>
-                <span className="text-xs font-semibold">{c.name}</span>
-              </Link>
+          <div className="flex flex-col gap-3">
+            {[categories.slice(0,5), categories.slice(5)].map((row, ri) => (
+              <div key={ri} className="flex gap-3 overflow-x-auto pb-1">
+                {row.map(c => (
+                  <Link key={c.name} to={`/search?type=genre&q=${c.name.toLowerCase()}`}
+                    className={`group flex-shrink-0 flex items-center gap-3 px-6 py-4 rounded-2xl border font-bold text-sm transition-all hover:-translate-y-1 hover:shadow-lg ${isDark?'bg-[#1E1540] border-[#2A1F55] text-[#C4B5FD] hover:border-[#A78BFA] hover:bg-[#2A1F55]':'bg-white border-[#E9DEFF] text-[#4C1D95] hover:border-[#8B5CF6] hover:bg-[#F3EEF9] shadow-sm'}`}>
+                    <span className="text-2xl group-hover:scale-125 transition-transform duration-200">{c.ico}</span>
+                    <span>{c.name}</span>
+                  </Link>
+                ))}
+              </div>
             ))}
           </div>
         </div>
