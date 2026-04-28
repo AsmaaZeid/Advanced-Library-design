@@ -352,7 +352,7 @@ const Home = ({ darkMode, setDarkMode }) => {
             <h1 style={{ fontFamily:"'Playfair Display',serif" }}
               className={`text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[.95] tracking-tight ${isDark?'text-white':'text-[#2E1065]'}`}>
               Discover your<br/>
-              <span className="text-shimmer">next obsession,</span><br/>
+              next obsession,<br/>
               <span className={`italic font-normal text-[.8em] ${isDark?'text-[#C4B5FD]':'text-[#6D28D9]'}`}>one page at a time</span>
             </h1>
 
