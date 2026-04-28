@@ -1,4 +1,4 @@
 node_modules
 .vite
 dist
-.env
+.env.claude/
