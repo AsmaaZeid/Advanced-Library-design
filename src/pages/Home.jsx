@@ -335,7 +335,7 @@ const Home = ({ darkMode, setDarkMode }) => {
       </div>
 
       {/* ══ HERO ══ */}
-      <section className="relative min-h-screen w-full overflow-hidden flex flex-col lg:flex-row">
+      <section className="relative h-screen w-full overflow-hidden flex flex-col lg:flex-row">
         <div className="absolute inset-0" style={{
           background: isDark
             ? 'radial-gradient(ellipse at 20% 80%, rgba(109,40,217,.3) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(219,39,119,.15) 0%, transparent 45%), linear-gradient(160deg,#0F0A20 0%,#150E2B 60%,#1E1540 100%)'
@@ -346,7 +346,6 @@ const Home = ({ darkMode, setDarkMode }) => {
         {/* LEFT — text */}
         <div className="relative z-10 flex-1 flex flex-col justify-center px-8 sm:px-14 lg:px-20 pt-28 pb-16 lg:py-0">
           <div className="animate-fade-in">
-            <p className={`text-xs uppercase tracking-[.4em] font-bold mb-8 ${mutedColor}`}>✦ BiblioTech Library</p>
             <div className="flex items-start gap-5 mb-8">
               <div className="hidden sm:block flex-shrink-0 w-1 h-36 mt-1 rounded-full" style={{ background:'linear-gradient(to bottom,#8B5CF6,#EC4899)' }}/>
               <h1 style={{ fontFamily:"'Playfair Display',serif" }}
