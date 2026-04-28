@@ -356,7 +356,7 @@ const Home = ({ darkMode, setDarkMode }) => {
               <span className={`italic font-normal text-[.8em] ${isDark?'text-[#C4B5FD]':'text-[#6D28D9]'}`}>one page at a time</span>
             </h1>
 
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
               <Link to="/search" className={`group flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-base shadow-xl transition-all hover:-translate-y-1 active:scale-95 ${isDark?'bg-white text-[#4C1D95]':'bg-[#4C1D95] text-white'}`}>
                 <span>Explore Books</span><span className="group-hover:translate-x-1 transition-transform">✦</span>
               </Link>
